@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        OPAGO | OPAGO PoS Installer
+    </title>
+
+    <!-- ===== All CSS files ===== -->
+    <link rel="stylesheet" href="static/css/base.css" />
+
+</head>
+
+<body>
+    <!-- ====== Hero Start ====== -->
+    <center>
+    <section class="ud-hero" id="home">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ud-hero-content wow fadeInUp" data-wow-delay=".2s">
+                        <h1 class="ud-hero-title">
+                            Install and configure your OPAGO PoS device
+                        </h1>
+                        <p class="ud-hero-desc">
+                            Setup new device or reconfigure your device. <br />
+
+                        </p>
+                            <div style="max-width: 700px" class="row ud-hero-buttons">
+                                <div class="col-2">
+                                    <a href="https://github.com/Opago-Pay" rel="nofollow noopener"
+                                        class="ud-main-btn ud-white-btn">
+                                        Github
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <select id="binVersionOption" class="ud-main-btn ud-white-btn">
+                                        <option value="v1.0.0">OPAGO Firmware (v1.0.0)</option>
+                                    </select> 
+                                  </div>
+                                
+                                  <div class="col-4">
+                                    <esp-web-install-button id="espInstallButton">
+                                      <button slot="activate" class="ud-main-btn ud-white-btn" data-toggle="tooltip"
+                                        data-placement="bottom" title="Install">Flash</button>
+                                    </esp-web-install-button>
+                                     </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-4">
+                                    <div class="col-2">
+                                    <textarea id="serialOutput" rows="10" cols="50"></textarea>
+                                    </div>
+                                    <label for="fiatCurrency">Fiat Currency:</label><br>
+                                    <select id="fiatCurrency" name="fiatCurrency"></select><br>
+                                    <label for="wifiSSID">WiFi SSID:</label><br>
+                                    <input type="text" id="wifiSSID" name="wifiSSID"><br>
+                                    <label for="wifiPwd">WiFi Password:</label><br>
+                                    <input type="text" id="wifiPwd" name="wifiPwd"><br>
+                                    <button id="writeConfig">Write Config</button>
+                                    </div>
+                </center>
+    </section>
+    <!-- ====== Hero End ====== -->
+
+    <!-- ====== Back To Top Start ====== -->
+    <a href="javascript:void(0)" class="back-to-top">
+        <i class="lni lni-chevron-up"> </i>
+    </a>
+    <!-- ====== Back To Top End ====== -->
+
+    <!-- ====== All Javascript Files ====== -->
+    <script type="module" src="https://unpkg.com/esp-web-tools@8.0.6/dist/web/install-button.js?module"></script>
+    <script src="static/js/templates.js"></script>
+    <script src="static/js/ui.js"></script>
+    <script src="static/js/serial.js"></script>
+    <script src="static/js/config.js"></script>
+    <script>
+        // ==== for menu scroll
+        const pageLink = document.querySelectorAll(".ud-menu-scroll");
+
+        pageLink.forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                e.preventDefault();
+                document.querySelector(elem.getAttribute("href")).scrollIntoView({
+                    behavior: "smooth",
+                    offsetTop: 1 - 60,
+                });
+            });
+        });
+
+        // section menu active
+        function onScroll(event) {
+            const sections = document.querySelectorAll(".ud-menu-scroll");
+            const scrollPos =
+                window.pageYOffset ||
+                document.documentElement.scrollTop ||
+                document.body.scrollTop;
+
+            for (let i = 0; i < sections.length; i++) {
+                const currLink = sections[i];
+                const val = currLink.getAttribute("href");
+                const refElement = document.querySelector(val);
+                const scrollTopMinus = scrollPos + 73;
+                if (
+                    refElement.offsetTop <= scrollTopMinus &&
+                    refElement.offsetTop + refElement.offsetHeight > scrollTopMinus
+                ) {
+                    document
+                        .querySelector(".ud-menu-scroll")
+                        .classList.remove("active");
+                    currLink.classList.add("active");
+                } else {
+                    currLink.classList.remove("active");
+                }
+            }
+        }
+
+        window.document.addEventListener("scroll", onScroll);
+    </script>
+
+    <script>
+        function updateBinVersion(versionDropdown) {
+            console.log("Function updateBinVersion called");
+            const espInstallButton = document.getElementById("espInstallButton");
+            espInstallButton.manifest = `static/firmware/esp32/${versionDropdown.value}/manifest.json`;
+            console.log(espInstallButton.manifest);
+        }
+
+        window.onload = function() {
+            // The event listener is added here for when there are multiple options
+            document.getElementById("binVersionOption").addEventListener("change", function() {
+                updateBinVersion(this);
+            });
+
+            // Call the function immediately on page load
+            updateBinVersion(document.getElementById("binVersionOption"));
+        };
+    </script>
+
+</body>
+
+</html>
