@@ -1,6 +1,6 @@
 {
-    "name": "OPAGO PoS",
-    "version": "1.0.0",
+    "name": "OPAGO POS",
+    "version": "GEN 1",
     "funding_url": "https://github.com/opago-pay",
     "new_install_prompt_erase": true,
     "builds": [
