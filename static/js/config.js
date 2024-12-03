@@ -1,6 +1,6 @@
 async function fetchCurrencies() {
     try {
-        const response = await fetch('https://lnbits.michaelantonfischer.com/api/v1/currencies', {
+        const response = await fetch('https://lnbits.opago-pay.com/api/v1/currencies', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -60,11 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     "id": "1",
                     "method": "setconfig",
                     "params": {
-                        "apiKey": {
-                            "key": "BueokH4o3FmhWmbvqyqLKz",
-                            "encoding": ""
-                        },
-                        "callbackUrl": "https://lnbits.opago-pay.com/lnurldevice/api/v1/lnurl/hTUMG",
+                        "apiKey.key": "imL5noxJcQRVtGWTXqh6an",
+                        "apiKey.encoding": "",
+                        "callbackUrl": "https://lnbits.opago-pay.com/lnurldevice/api/v1/lnurl/bMyzC",
                         "uriSchemaPrefix": "",
                         "fiatCurrency": document.getElementById('fiatCurrency').value,
                         "fiatPrecision": "2",

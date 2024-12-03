@@ -1,7 +1,0 @@
-- [ ] Add selector for reconfiguring old device and setting up new device.
-- [ ] If new device fetch API key from Server
-- [ ] If old device, fetch list of devices and show selector
-- [ ] set API key and callback URL based on selected device
-- [ ] Implement token handover to get API keys for the logged in user.
-- [ ] Implement Login for users that have the link stored in their browser.
-- [ ] fix time out bug after successfull installation

@@ -1,3 +1,7 @@
+// Import the configuration from config.js
+// Note: In client-side JavaScript, we cannot use require. Instead, we use import statement.
+import { config } from './config.js';
+
 const serialConfig = {
     selectedPort: null,
     writableStreamClosed: null,
@@ -9,6 +13,17 @@ const serialConfig = {
 }
 
 const sleep = ms => new Promise(r => setTimeout(r, ms))
+
+async function writeConfig() {
+    const wifiSSID = document.getElementById("wifiSSID").value;
+    const wifiPwd = document.getElementById("wifiPwd").value;
+
+    // Update the config with the values from the form
+    config.wifiSSID = wifiSSID;
+    config.wifiPwd = wifiPwd;
+
+    await sendSerialData(JSON.stringify(config));
+}
 
 async function openSerialPort(config = { baudRate: 115200 }) {
     if (!checkSerialPortSupported()) return false
@@ -42,6 +57,10 @@ async function openSerialPort(config = { baudRate: 115200 }) {
 
         serialConfig.writer = textEncoder.writable.getWriter()
         showMessage('Connected to serial port!')
+
+        // Call writeConfig after the installation process
+        await writeConfig();
+
         return true
     } catch (error) {
         console.error('Error while opening serial port: ', error)
